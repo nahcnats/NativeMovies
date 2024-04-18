@@ -5,8 +5,9 @@
 //  Created by Stanley Chan on 18/04/2024.
 //
 
-#ifndef RNConfig_h
-#define RNConfig_h
+#import <React/RCTBridgeModule.h>
 
+#import <React/RCTBridgeModule.h>
 
-#endif /* RNConfig_h */
+@interface RNConfig : NSObject <RCTBridgeModule>
+@end
