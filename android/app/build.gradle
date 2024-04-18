@@ -101,6 +101,27 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    flavorDimensions "env"
+    productFlavors {
+        internal {
+            applicationId 'com.nativemovies.dev'
+            versionCode 1
+            versionName "1.0"
+            resValue "string", "app_name", "Native Movies Debug"
+        }
+        staging {
+            applicationId 'com.nativemovies.beta'
+            versionCode 1
+            versionName "1.0"
+            resValue "string", "app_name", "Native Movies Beta"
+        }
+        external {
+            applicationId 'com.nativemovies'
+            versionCode 1
+            versionName "1.0"
+            resValue "string", "app_name", "Native Movies"
+        }
+    }
 }
 
 dependencies {
