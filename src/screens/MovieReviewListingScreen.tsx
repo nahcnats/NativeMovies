@@ -6,6 +6,7 @@ import { FlashList } from "@shopify/flash-list";
 import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment';
 import colors from 'tailwindcss/colors';
+import { TMDB_IMAGE_PATH } from '@env'
 
 import { MainNavigationParams } from '../navigators/MainNavigation';
 import { useRefreshOnFocus } from '../hooks/useFreshOnFocus';
@@ -49,7 +50,7 @@ const MovieReviewListingScreen = ({ route }: Props) => {
     }
 
     const ReviewItem = ({ itemData }: ReviewItemsProps) => {
-        const avatarPath = itemData.author_details.avatar_path !== null ? `${process.env.EXPO_PUBLIC_TMDB_IMAGE_PATH}/${itemData.author_details.avatar_path}` : '';
+        const avatarPath = itemData.author_details.avatar_path !== null ? `${TMDB_IMAGE_PATH}/${itemData.author_details.avatar_path}` : '';
 
         return (
             <View className='flex-row justify-between space-x-4'>

@@ -15,6 +15,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Image } from 'expo-image';
 import { debounce } from 'lodash';
 import Animated from 'react-native-reanimated';
+import { TMDB_IMAGE_PATH } from '@env';
 
 import { MainNavigationParams } from '../navigators/MainNavigation';
 import { searchMovies, searchMoviesProp  } from '../services/movies-services';
@@ -97,14 +98,11 @@ const SearchScreen = () => {
                                         <View className='space-y-2 mb-4'>
                                             <Image
                                                 className='rounded-3xl'
-                                                // source={`${process.env.EXPO_PUBLIC_TMDB_IMAGE_PATH}/${item?.poster_path}`}
-                                                source={{uri: `${process.env.EXPO_PUBLIC_TMDB_IMAGE_PATH}/${item?.poster_path}`}}
+                                                source={{uri: `${TMDB_IMAGE_PATH}/${item?.poster_path}`}}
                                                 style={{
                                                     width: width * 0.44,
                                                     height: height * 0.3
                                                 }}
-                                                // sharedTransitionStyle={customTransition}
-                                                // sharedTransitionTag={`${item.id}`}
                                             />
                                             <Text className='text-xs text-neutral-400'>
                                                 {item.title.length > 22 ? item.title.slice(0, 22) + '...' : item.title}
