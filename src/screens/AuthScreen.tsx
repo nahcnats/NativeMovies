@@ -70,6 +70,7 @@ const AuthScreen = () => {
 
             const payload = {
                 username: data.username,
+                password: data.password,
                 request_token: requestTokenRes.request_token
             } as loginWithPasswordProps;
 

@@ -22,9 +22,13 @@ export const useUserStore = create(
     persist<UserState>(
         (set, get) => ({
             value: auth,
-            logIn: (value: AuthState) => set((state) => {
-                return {...state.value, value: value};
-            }),
+            logIn: (user: AuthState) => set((state) => (
+                {value: user}
+            )),
+            // logIn: (user: AuthState) => set((state) => {
+
+            //     return { ...state.value, value: user };
+            // }),
             logOut: () => set((state) => {
                 storage.clearAll();
 

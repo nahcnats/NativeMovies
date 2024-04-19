@@ -56,7 +56,7 @@ const TrendingMovies = () => {
                     // source={`${process.env.EXPO_PUBLIC_TMDB_IMAGE_PATH}/${item.poster_path}`}
                     source={{ uri: imageUri }}
                     style={{
-                        width: width - 5,
+                        width: width - 10,
                         height: height / 1.6
                     }}
                     // contentFit="cover"
@@ -97,7 +97,7 @@ const TrendingMovies = () => {
                 mode="parallax"
                 modeConfig={{
                     parallaxScrollingScale: 0.9,
-                    parallaxScrollingOffset: 50,
+                    parallaxScrollingOffset: 47,
                 }}
                 data={data || []}
                 renderItem={({ item }) => <MovieCard item={item} />}

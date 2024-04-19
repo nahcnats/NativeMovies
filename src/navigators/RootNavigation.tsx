@@ -27,15 +27,11 @@ const RootNavigation = () => {
     const logOut = useUserStore((state) => state.logOut);
 
     const trySignIn = useCallback(async () => {
-        try {
-            if (!credentials) return;
-
-            logIn(credentials);
-        } catch (err: any) {
+        if (!credentials) {
             Toast.show({
                 type: ALERT_TYPE.DANGER,
                 title: 'Error',
-                textBody: err.message || 'Invalid credentials',
+                textBody: 'Invalid credentials',
                 autoClose: 2000,
             });
 
