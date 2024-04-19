@@ -14,7 +14,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MainNavigationParams } from '../navigators/MainNavigation';
 import { useRefreshOnFocus } from '../hooks/useFreshOnFocus';
 import { useReviews } from '../hooks/useReviews';
-import { useAppSelector } from '../store/store';
+import { useUserStore } from '../store/userStore';
 import { useProfile } from '../hooks/useProfile';
 import { useRatings } from '../hooks/useRatings';
 import { useRemoveRating } from '../hooks/useRemoveRating';
@@ -30,7 +30,7 @@ interface MovieDetailsFooterProps {
 }
 
 const MovieDetailsFooter = ({ movieId, movieTitle }: MovieDetailsFooterProps) => {
-    const { request_token } = useAppSelector(state => state.authReducer.value);
+    const { request_token } = useUserStore((state) => state.value);
     const navigation = useNavigation<NativeStackNavigationProp<MainNavigationParams>>();
     const [isRated, setIsRated] = useState(false);
     const [rating, setRating] = useState(0);
@@ -148,7 +148,7 @@ const MovieDetailsFooter = ({ movieId, movieTitle }: MovieDetailsFooterProps) =>
                 onPress={() => navigation.navigate('ReviewListing', {movieId: movieId, movieTitle: movieTitle})}
                 disabled={data?.pages[0].total_results === 0}
             >
-                <MaterialIcons name="reviews" size={24} color='white' />
+                <MaterialIcons name='rate-review' size={24} color='white' />
                 <Text className='text-sm text-white font-semibold'><Text className='text-tertiary'>{data?.pages[0].total_results}</Text> Review{data?.pages[0].total_results === 1 ? '' : 's'}</Text>
             </TouchableOpacity>
             <TouchableOpacity
