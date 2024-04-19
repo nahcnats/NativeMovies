@@ -23,7 +23,6 @@ import { WatchList } from '../models/WatchList';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
-import { customTransition } from '../utils';
 
 const { width, height } = Dimensions.get('window');
 

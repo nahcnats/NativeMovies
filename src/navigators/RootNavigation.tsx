@@ -1,17 +1,20 @@
 import React, { useCallback, useEffect } from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAppState } from '@react-native-community/hooks';
 import colors from "tailwindcss/colors";
 import { Toast, ALERT_TYPE } from 'react-native-alert-notification';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
-import { logIn, logOut } from "../store/features/auth-slice"
-import { useAppSelector } from "../store/store";
+import { AuthState, useUserStore } from "../store/userStore";
+// import { logIn, logOut } from "../store/features/auth-slice"
+// import { useAppSelector } from "../store/store";
 
 import AuthNavigation from "./AuthNavigation";
 import MainNavigation from "./MainNavigation";
+import { useMMKVObject } from "react-native-mmkv";
+import { storage } from "../store/storage";
 
 const MyTheme = {
     ...DefaultTheme,
@@ -23,18 +26,16 @@ const MyTheme = {
 
 const RootNavigation = () => {
     const currentAppState = useAppState();
-    const dispatch = useDispatch();
-    const isAuth = useAppSelector((state) => !!state.authReducer.value.request_token);
+    const isAuth = useUserStore((state) => state.value.request_token);
+    const [credentials, setCredential] = useMMKVObject<AuthState>('user-storage', storage);
+    const logIn = useUserStore((state) => state.logIn);
+    const logOut = useUserStore((state) => state.logOut);
 
     const trySignIn = useCallback(async () => {
         try {
-            const authStore = await AsyncStorage.getItem("CREDENTIALS");
+            if (!credentials) return;
 
-            if (!authStore) return;
-
-            const credentials = JSON.parse(authStore);
-
-            dispatch(logIn(credentials));
+            logIn(credentials);
         } catch (err: any) {
             Toast.show({
                 type: ALERT_TYPE.DANGER,
@@ -43,7 +44,7 @@ const RootNavigation = () => {
                 autoClose: 2000,
             });
 
-            dispatch(logOut());
+            logOut();
         }
     }, []);
 

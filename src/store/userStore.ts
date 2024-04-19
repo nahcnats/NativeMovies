@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { zustandStorage } from './storage';
+import { storage, zustandStorage } from './storage';
 
-type AuthState = {
+export type AuthState = {
     username: string,
     request_token: string  
 }
@@ -13,22 +13,23 @@ type UserState = {
     logOut: () => void,
 }
 
+const user = {
+    username: '',
+    request_token: ''
+}
+
 export const useUserStore = create(
     persist<UserState>(
         (set, get) => ({
-            value: {
-                username: '',
-                request_token: ''
-            },
+            value: user,
             logIn: (value: AuthState) => set((state) => {
                 return {...state.value, value: value};
             }),
             logOut: () => set((state) => {
+                storage.clearAll();
+
                 return {
-                    value: {
-                        username: '',
-                        request_token: ''
-                    }
+                    value: user
                 }
             })
         }),
