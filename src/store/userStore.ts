@@ -13,7 +13,7 @@ type UserState = {
     logOut: () => void,
 }
 
-const user = {
+const auth = {
     username: '',
     request_token: ''
 } as AuthState;
@@ -21,7 +21,7 @@ const user = {
 export const useUserStore = create(
     persist<UserState>(
         (set, get) => ({
-            value: user,
+            value: auth,
             logIn: (value: AuthState) => set((state) => {
                 return {...state.value, value: value};
             }),
@@ -29,7 +29,7 @@ export const useUserStore = create(
                 storage.clearAll();
 
                 return {
-                    value: user
+                    value: auth
                 }
             })
         }),
