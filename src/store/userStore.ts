@@ -16,7 +16,7 @@ type UserState = {
 const user = {
     username: '',
     request_token: ''
-}
+} as AuthState;
 
 export const useUserStore = create(
     persist<UserState>(
