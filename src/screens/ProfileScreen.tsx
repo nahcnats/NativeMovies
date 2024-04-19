@@ -1,9 +1,7 @@
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
-import { AppDispatch, useAppSelector } from '../store/store';
-import { logOut} from '../store/features/auth-slice';
+import { useUserStore } from '../store/userStore';
 import { useRefreshOnFocus } from '../hooks/useFreshOnFocus';
 import { useProfile } from '../hooks/useProfile';
 
@@ -14,8 +12,8 @@ import Loading from '../components/Loading';
 
 
 const ProfileScreen = () => {
-    const { request_token } = useAppSelector(state => state.authReducer.value);
-    const dispatch = useDispatch<AppDispatch>();
+    const { request_token } = useUserStore((state) => state.value);
+    const logOut = useUserStore((state) => state.logOut);
 
     const {
         isLoading: isProfileLoading,
@@ -60,7 +58,7 @@ const ProfileScreen = () => {
                 </View>
                 <TouchableOpacity
                     className='bg-tertiary self-center p-4 w-32 mt-16 rounded-lg'
-                    onPress={() => dispatch(logOut())}
+                    onPress={logOut}
                 >
                     <Text className='text-sm text-primary font-semibold self-center'>Sign Out</Text>
                 </TouchableOpacity>

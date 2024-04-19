@@ -5,6 +5,7 @@ import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 import { Image } from 'expo-image';
 import Animated, { useSharedValue } from 'react-native-reanimated';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ENV_VAR } from '@env';
 
 import { IS_ANDROID, customTransition } from '../utils';
 
@@ -45,7 +46,7 @@ const TrendingMovies = () => {
     } = useTrendingMovies();
 
     const MovieCard = ({ item }: MovieCardProps) => {
-        const imageUri = `${process.env.EXPO_PUBLIC_TMDB_IMAGE_PATH}/${item.poster_path}`;
+        const imageUri = `${ENV_VAR.TMDB_IMAGE_PATH}/${item.poster_path}`;
 
         return (
             <Pressable

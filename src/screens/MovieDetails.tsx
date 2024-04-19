@@ -15,14 +15,16 @@ import { LinearGradient } from 'expo-linear-gradient';
 import colors from 'tailwindcss/colors';
 import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
 import Animated, { FadeIn, FadeInDown, FadeInRight, FadeInUp, FadeOut, FadeOutDown, FadeOutUp, withSpring } from 'react-native-reanimated';
+import { ENV_VAR } from '@env';
 
 import { IS_ANDROID, customTransition } from '../utils';
 
+import { useUserStore } from "../store/userStore";
 import { MainNavigationParams } from '../navigators/MainNavigation';
 import { useMovie } from '../hooks/useMovie';
 import { useRefreshOnFocus } from '../hooks/useFreshOnFocus';
 import { useProfile } from '../hooks/useProfile';
-import { useAppSelector } from '../store/store';
+// import { useAppSelector } from '../store/store';
 import MovieDetailsFooter from '../components/MovieDetailFooter';
 import { useAddWatchlist } from '../hooks/useAddWatchList';
 import { useWatchlist } from '../hooks/useWatchlist';
@@ -35,7 +37,7 @@ const topMargin = IS_ANDROID ? 'mt-3' : ''
 type Props = NativeStackScreenProps<MainNavigationParams, 'MovieDetails'>;
 
 const MovieDetailScreen = ({ route }: Props) => {
-	const { request_token } = useAppSelector(state => state.authReducer.value);
+	const { request_token } = useUserStore((state) => state.value);
 	const navigation = useNavigation<NativeStackNavigationProp<MainNavigationParams>>();
 	const { movieId } = route.params;
 	const [isWatchList, setIsWatchList] = useState(false);
@@ -128,18 +130,15 @@ const MovieDetailScreen = ({ route }: Props) => {
 				</SafeAreaView>
 				<View>
 					<Animated.Image
-						// source={`${process.env.EXPO_PUBLIC_TMDB_IMAGE_PATH}/${data?.poster_path}`}
-						source={{ uri: `${process.env.EXPO_PUBLIC_TMDB_IMAGE_PATH}/${data?.poster_path}`}}
+						source={{ uri: `${ENV_VAR.TMDB_IMAGE_PATH}/${data?.poster_path}`}}
 						style={{
 							width: width,
 							height: height * 0.55
 						}}
-						// contentFit="cover"
 						resizeMode='cover'
 						className='rounded-3xl mb-2 '
 						sharedTransitionStyle={customTransition} 
 						sharedTransitionTag={`${movieId}`}
-						// entering={FadeIn.delay(600)}
 						entering={
 							FadeInUp.delay(600)
 						}

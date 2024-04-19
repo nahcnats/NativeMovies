@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Image } from 'expo-image';
 import Animated from 'react-native-reanimated';
+import { ENV_VAR } from '@env';
 
 import { useRefreshOnFocus } from '../hooks/useFreshOnFocus';
 import { MainNavigationParams } from '../navigators/MainNavigation';
@@ -14,14 +15,15 @@ import Loading from '../components/Loading';
 import Error from '../components/Error';
 import { getWatchlist } from '../services/profile-services';
 import { useProfile } from '../hooks/useProfile';
-import { useAppSelector } from '../store/store';
+import { useUserStore } from '../store/userStore';
+// import { useAppSelector } from '../store/store';
 import { useWatchlist } from '../hooks/useWatchlist';
 import { customTransition } from '../utils';
 
 const { width, height } = Dimensions.get('window');
 
 const WatctListScreen = () => {
-    const { request_token } = useAppSelector(state => state.authReducer.value);
+    const { request_token } = useUserStore(state => state.value);
     const navigation = useNavigation<NativeStackNavigationProp<MainNavigationParams>>();
 
     const {
@@ -78,7 +80,7 @@ const WatctListScreen = () => {
                                     <View className='space-y-2 mb-4'>
                                         <Animated.Image
                                             className='rounded-3xl'
-                                            source={{uri: `${process.env.EXPO_PUBLIC_TMDB_IMAGE_PATH}/${item?.poster_path}`}}
+                                            source={{uri: `${ENV_VAR.TMDB_IMAGE_PATH}/${item?.poster_path}`}}
                                             style={{
                                                 width: width * 0.44,
                                                 height: height * 0.3

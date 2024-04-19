@@ -9,6 +9,7 @@ import {
     useForm,
 } from 'react-hook-form';
 import { ALERT_TYPE, Toast, Dialog } from 'react-native-alert-notification';
+import { useMMKVObject } from "react-native-mmkv";
 
 import { IS_ANDROID, dismissKeyboard } from '../utils';
 import { 
@@ -18,7 +19,8 @@ import {
 } from '../services/auth-services';
 
 import CustomTextInput from '../components/CustomTextInput';
-import { useUserStore } from '../store/userStore';
+import { AuthState, useUserStore } from '../store/userStore';
+import { storage } from '../store/storage';
 
 const signInFormSchema = z.object({
     username: z
@@ -39,6 +41,7 @@ type TSignInFormSchema = z.infer<typeof signInFormSchema>;
 
 const AuthScreen = () => {
     const logIn = useUserStore((state) => state.logIn);
+    const [credentials, setCredential] = useMMKVObject<AuthState>('user-storage', storage);
     const [isLoading, setIsLoading] = useState(false);
 
     const methods = useForm<TSignInFormSchema>({
@@ -75,6 +78,8 @@ const AuthScreen = () => {
             if (logInRes?.success !== true) {
                 throw new Error(logInRes.status_message);
             };
+
+            setCredential(payload);
 
             logIn(payload);
         } catch (err: any) {

@@ -1,16 +1,11 @@
 import React, { useCallback, useEffect } from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAppState } from '@react-native-community/hooks';
 import colors from "tailwindcss/colors";
 import { Toast, ALERT_TYPE } from 'react-native-alert-notification';
-// import { useDispatch } from 'react-redux';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 import { AuthState, useUserStore } from "../store/userStore";
-// import { logIn, logOut } from "../store/features/auth-slice"
-// import { useAppSelector } from "../store/store";
-
 import AuthNavigation from "./AuthNavigation";
 import MainNavigation from "./MainNavigation";
 import { useMMKVObject } from "react-native-mmkv";
