@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Image } from 'expo-image';
 import Animated from 'react-native-reanimated';
-import { ENV_VAR } from '@env';
+import { TMDB_IMAGE_PATH } from '@env';
 
 import { useRefreshOnFocus } from '../hooks/useFreshOnFocus';
 import { MainNavigationParams } from '../navigators/MainNavigation';
@@ -80,7 +80,7 @@ const WatctListScreen = () => {
                                     <View className='space-y-2 mb-4'>
                                         <Animated.Image
                                             className='rounded-3xl'
-                                            source={{uri: `${ENV_VAR.TMDB_IMAGE_PATH}/${item?.poster_path}`}}
+                                            source={{uri: `${TMDB_IMAGE_PATH}/${item?.poster_path}`}}
                                             style={{
                                                 width: width * 0.44,
                                                 height: height * 0.3

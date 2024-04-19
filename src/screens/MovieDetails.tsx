@@ -15,7 +15,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import colors from 'tailwindcss/colors';
 import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
 import Animated, { FadeIn, FadeInDown, FadeInRight, FadeInUp, FadeOut, FadeOutDown, FadeOutUp, withSpring } from 'react-native-reanimated';
-import { ENV_VAR } from '@env';
+import { TMDB_IMAGE_PATH } from '@env';
 
 import { IS_ANDROID, customTransition } from '../utils';
 
@@ -24,7 +24,6 @@ import { MainNavigationParams } from '../navigators/MainNavigation';
 import { useMovie } from '../hooks/useMovie';
 import { useRefreshOnFocus } from '../hooks/useFreshOnFocus';
 import { useProfile } from '../hooks/useProfile';
-// import { useAppSelector } from '../store/store';
 import MovieDetailsFooter from '../components/MovieDetailFooter';
 import { useAddWatchlist } from '../hooks/useAddWatchList';
 import { useWatchlist } from '../hooks/useWatchlist';
@@ -130,7 +129,7 @@ const MovieDetailScreen = ({ route }: Props) => {
 				</SafeAreaView>
 				<View>
 					<Animated.Image
-						source={{ uri: `${ENV_VAR.TMDB_IMAGE_PATH}/${data?.poster_path}`}}
+						source={{ uri: `${TMDB_IMAGE_PATH}/${data?.poster_path}`}}
 						style={{
 							width: width,
 							height: height * 0.55

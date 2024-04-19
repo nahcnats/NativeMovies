@@ -2,35 +2,31 @@ import { Platform, Keyboard, NativeModules } from "react-native";
 import { QueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { ReduceMotion, SharedTransition, withSpring } from 'react-native-reanimated';
-import { ENV_VAR } from '@env';
+import { TMDB_BASE_URL, TMDB_TOKEN } from '@env';
 
 // import { useUserStore } from "../store/userStore";;
 
 export const queryClient = new QueryClient();
 export const IS_ANDROID = Platform.OS === 'android';
 
-const fetchBaseUrl = (): string => {
-    let BASE_URL;
+let BASE_URL;
 
-    if (NativeModules.RNConfig.env === (IS_ANDROID ? 'internal' : 'Internal')) {
-        BASE_URL = ENV_VAR.TMDB_BASE_URL;
-    } else if (NativeModules.RNConfig.env === (IS_ANDROID ? 'staging' : 'Staging')) {
-        BASE_URL = ENV_VAR.TMDB_BASE_URL;
-    } else {
-        BASE_URL = ENV_VAR.TMDB_BASE_URL;
-    }
-
-    return BASE_URL;
+if (NativeModules.RNConfig.env === (IS_ANDROID ? 'internal' : 'Internal')) {
+    BASE_URL = TMDB_BASE_URL;
+} else if (NativeModules.RNConfig.env === (IS_ANDROID ? 'staging' : 'Staging')) {
+    BASE_URL = TMDB_BASE_URL;
+} else {
+    BASE_URL = TMDB_BASE_URL;
 }
 
 // const request_token = useUserStore.getState().value.request_token;
 
 // TODO:: implement axios interceptors
 export const server = axios.create({
-    baseURL: fetchBaseUrl(),
+    baseURL: BASE_URL,
     headers: {
         'Content-type': 'application/json;charset=UTF-8',
-        'Authorization': `Bearer ${ENV_VAR.TMDB_TOKEN}`,
+        'Authorization': `Bearer ${TMDB_TOKEN}`,
         // 'Authorization': `Bearer ${request_token}`,
         'Accept': 'application/json'
     }
